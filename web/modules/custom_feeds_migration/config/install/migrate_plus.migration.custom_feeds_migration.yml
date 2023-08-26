@@ -32,14 +32,37 @@ source:
       name: link
       label: 'Origin link'
       selector: link
+    -
+      name: body_value
+      label: Summary
+      selector: 'content:encoded'
+    -
+      name: image_url
+      label: 'Image URL'
+      selector: 'media:content/@url'
   ids:
     guid:
       type: string
+  constants:
+    full_html: full_html
+    destination_uri: 'public://custom_feeds_migration/post.jpg'
 process:
   slug: importing-feeds
   title: title
-  field_remote_url: link
-  body: summary
+  field_guid: guid
+  field_image:
+    -
+      plugin: download
+      source:
+        - image_url
+      rename: true
+    -
+      plugin: entity_generate
+      entity_type: file
+      value_key: uri
+  field_link: link
+  body/value: body_value
+  body/format: constants/full_html
   created:
     plugin: format_date
     from_format: 'D, d M Y H:i:s O'
@@ -48,9 +71,6 @@ process:
   status:
     plugin: default_value
     default_value: 1
-  type:
-    plugin: default_value
-    default_value: podcast_episode
 destination:
   plugin: 'entity:node'
   default_bundle: article

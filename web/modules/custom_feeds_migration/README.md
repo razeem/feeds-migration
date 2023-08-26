@@ -11,17 +11,17 @@ Depends on Migrate and Migrate plus module in drupal
 Install as you would normally install a contributed Drupal module.
 See: https://www.drupal.org/node/895232 for further information.
 
-## CONFIGURATION
-- Configuration step #1
-- Configuration step #2
-- Configuration step #3
-### Import
-- `cp config/sync/migrate_plus.migration.custom_feeds_migration.yml web/modules/custom_feeds_migration/config/install`
-- `lando drush cim && lando drush ms`
-- `lando drush ms`
-- `lando drush migrate:import custom_feeds_migration --limit=1`
-- `lando drush migrate-rollback custom_feeds_migration`
-- `lando drush migrate:stop custom_feeds_migration`
+## Commands
+### Command to import and see the status
+- `drush cim -y && drush ms`
+### Command to stop and reset running migration plugins
+- `drush migrate:stop custom_feeds_migration`
+- `drush migrate-reset-status custom_feeds_migration`
+### Command to import and see the status
+- `drush migrate:import custom_feeds_migration`
+We can use the limit option to limit the migration to a certain number, e.g : `  --limit=1`
+### Command to rollback migration
+- `drush migrate-rollback custom_feeds_migration`
 
 ## MAINTAINERS
 

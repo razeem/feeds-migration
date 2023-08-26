@@ -1,0 +1,50 @@
+uuid: 6822dd5d-e212-4d32-8b92-0efadb20ef57
+id: custom_feeds_migration
+label: 'NDTV Top Posts'
+migration_group: default
+source:
+  plugin: url
+  data_fetcher_plugin: http
+  urls: 'http://feeds.feedburner.com/ndtvnews-top-stories.xml'
+  data_parser_plugin: simple_xml
+
+  item_selector: /rss/channel/item
+  fields:
+    -
+      name: guid
+      label: GUID
+      selector: guid
+    -
+      name: title
+      label: Title
+      selector: title
+    -
+      name: pub_date
+      label: 'Publication date'
+      selector: pubDate
+    -
+      name: link
+      label: 'Origin link'
+      selector: link
+  ids:
+    guid:
+      type: string
+destination:
+  plugin: 'entity:node'
+  default_bundle: article
+process:
+  slug: importing-feeds
+  title: title
+  field_remote_url: link
+  body: summary
+  created:
+    plugin: format_date
+    from_format: 'D, d M Y H:i:s O'
+    to_format: 'U'
+    source: pub_date
+  status:
+    plugin: default_value
+    default_value: 1
+  type:
+    plugin: default_value
+    default_value: podcast_episode

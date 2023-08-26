@@ -1,0 +1,14 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for Custom Feeds Migration module.
+ */
+
+/**
+ * Implements hook_migration_plugins_alter().
+ */
+function custom_feed_migration_migration_plugins_alter(array &$plugins) {
+  // Alter the source plugin for the migration.
+  $plugins['ndtv_top_posts']['source']['urls'] = ['http://feeds.feedburner.com/ndtvnews-top-stories.xml'];
+}

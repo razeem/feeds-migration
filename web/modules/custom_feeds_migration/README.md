@@ -16,11 +16,12 @@ See: https://www.drupal.org/node/895232 for further information.
 - Configuration step #2
 - Configuration step #3
 ### Import
-  `lando drush cim && lando drush ms`
-  `lando drush ms`
-  `lando drush migrate:import ndtv_top_posts --limit=1`
-  `lando drush migrate-rollback ndtv_top_posts`
-  `lando drush migrate:stop ndtv_top_posts`
+- `cp config/sync/migrate_plus.migration.custom_feeds_migration.yml web/modules/custom_feeds_migration/config/install`
+- `lando drush cim && lando drush ms`
+- `lando drush ms`
+- `lando drush migrate:import custom_feeds_migration --limit=1`
+- `lando drush migrate-rollback custom_feeds_migration`
+- `lando drush migrate:stop custom_feeds_migration`
 
 ## MAINTAINERS
 

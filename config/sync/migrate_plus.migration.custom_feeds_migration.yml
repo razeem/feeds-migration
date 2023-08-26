@@ -45,16 +45,23 @@ source:
       type: string
   constants:
     full_html: full_html
-    destination_uri: 'public://custom_feeds_migration/post.jpg'
+    destination_uri: 'public://migrated_images/post.jpg'
 process:
   slug: importing-feeds
   title: title
   field_guid: guid
+  pseudo_destination_filename:
+    -
+      plugin: concat
+      source:
+        - constants/destination_uri
+        - image_url
   field_image:
     -
       plugin: download
       source:
         - image_url
+        - constants/destination_uri
       rename: true
     -
       plugin: entity_generate

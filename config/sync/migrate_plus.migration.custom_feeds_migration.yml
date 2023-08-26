@@ -48,7 +48,7 @@ destination:
 process:
   slug: importing-feeds
   title: title
-  field_guid: image
+  field_guid: guid
   field_link: link
   body/value: body_value
   body/format: constants/full_html
